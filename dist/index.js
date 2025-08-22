@@ -391,7 +391,7 @@ class DependabotExtractor {
          */
         this.regex = new RegExp(
         // eslint-disable-next-line no-useless-escape
-        /^(?!<li\>).*(?:(?:U|u)pdate|(?:B|b)ump)s? (\S+?) (?:requirement )?from (\S*) to (\S*)/);
+        /^(?!<li\>).*(?:(?:U|u)pdate|(?:B|b)ump)s? (\S+?) (?:requirement )?(?:from (\S*) )?to (\S*)/);
     }
     getEntries(event) {
         const pullRequestNumber = event.pull_request.number;
