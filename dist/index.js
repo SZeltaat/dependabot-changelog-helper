@@ -140,10 +140,10 @@ class DefaultChangelogUpdater {
     // We omit PR context - (#pr) - because we can't know which PR merged the previous bump
     buildEntryLineForDuplicateCheck(entry) {
         const lineStart = this.buildEntryLineStart(entry);
-        return `${lineStart} ${entry.oldVersion} to ${entry.newVersion}`;
+        return `${lineStart}${entry.oldVersion ? ` from ${entry.oldVersion}` : ''} to ${entry.newVersion}`;
     }
     buildEntryLineStart(entry) {
-        return `- ${this.entryPrefix} \`${entry.package}\` from`;
+        return `- ${this.entryPrefix} \`${entry.package}\``;
     }
     buildEntryLine(entry) {
         const lineStart = this.buildEntryLineForDuplicateCheck(entry);
@@ -151,7 +151,8 @@ class DefaultChangelogUpdater {
         return `${lineStart} (${currentPullRequest})`;
     }
     buildEntryLineStartRegex(entry) {
-        return new RegExp(`- \\w+ \`${entry.package}\` from `);
+        // Match both with and without 'from <oldVersion>'
+        return new RegExp(`- \\w+ \`${entry.package}\`(?: from \\S+)? `);
     }
     addNewEntry(entry) {
         this.writeLine(this.sectionStartLineNumber, '');
